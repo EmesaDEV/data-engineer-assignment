@@ -19,7 +19,7 @@ Please share with us the repo once you're done.
     # 4. Use git push to the private remote as you work
     ```
 
-1. 👨‍🔧 Build an ETL pipeline (batch or streaming) loading [data/sample.csv](data/sample.csv) into a database of choice.
+1. 👨‍🔧 Build a pipeline (batch or streaming) loading [data/sample.csv](data/sample.csv) into a database of choice.
 
 2. 👨‍🔧 Build and deploy an API-endpoint to query the data. The endpoint should return a json response.
 
