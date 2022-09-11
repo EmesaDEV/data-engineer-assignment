@@ -1,0 +1,10 @@
+# project
+psycopg2
+pandas
+pyspark
+
+# development
+black
+flake8
+isort
+jupyter
