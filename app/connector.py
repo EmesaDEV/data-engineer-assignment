@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 import pandas as pd
 import pandas.io.sql as psql
@@ -35,7 +36,9 @@ class PostgresConnector(DatabaseConnector):
         )
         self.conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 
-    def execute(self, command: str, response: bool = False) -> None:
+    def execute(
+        self, command: str, response: bool = False
+    ) -> Optional[psycopg2.extensions.cursor]:
         if self.conn:
             cur = self.conn.cursor()
             cur.execute(command)
@@ -58,5 +61,5 @@ class PostgresConnector(DatabaseConnector):
         }
         df.write.jdbc(url=url, table=table, mode="append", properties=properties)
 
-    def close(self):
+    def close(self) -> None:
         self.conn.close()

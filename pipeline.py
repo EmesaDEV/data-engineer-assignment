@@ -74,7 +74,7 @@ df = (
 pgc.ingest_spark_dataframe(df=df, table="raw.sample_data")
 
 # Transform data
-## Build orders table in the 'dwh' layer
+# Build orders table in the 'dwh' layer
 sql = """
 create table if not exists dwh.order as (
 select order_id, order_status, order_date, customer_id
@@ -83,7 +83,7 @@ from raw.sample_data
 """
 pgc.execute(sql)
 
-## Build christmas promotion mart in 'mrt' layer
+# Build christmas promotion mart in 'mrt' layer
 sql = """
 create or replace view mrt.christmas_promotion as (
 select *
@@ -94,7 +94,7 @@ and order_status = 'PAID'
 """
 pgc.execute(sql)
 
-## Build valentines promotion mart in 'mrt' layer
+# Build valentines promotion mart in 'mrt' layer
 sql = """
 create or replace view mrt.valentines_promotion as (
 select *
