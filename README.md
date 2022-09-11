@@ -1,40 +1,34 @@
-# Take-home Assignment
-For the Data Engineer role at Talpa E-commerce.
+# Take-home Assignment Emesa
 
-## Goal
+## How to run the solution
+Prerequisites:
+* Docker
+* Python3
+* Virtualenv package installed
+* Make
 
-The goal of this exercise is to allow you to show us how you would solve a Data Engineering problem without the pressure of a live coding exercise. We will ask you to explain your solution (thinking process, and code) in the second technical round and also use this as a conversation starter for chatting about other topics.
+1. Clone the repo: `git clone https://github.com/JPlanken/emesa-de-assignment.git`
+2. cd into repo: `cd emesa-de-assignment`
+3. Install required packages into a virtual environment using `make venv`
+4. Launch Postgres on Docker by running `make pg_up`
+5. Run the pipeline `python3 pipeline.py`
+6. Launch the gunicorn server using `make server`
+7. Visit `http://127.0.0.1:5000/` in your browser
+8. Download the required CSV-file
+9. Inspect the data
+10. Stop Docker container by running `make pg_down`
 
-## The assignment
+## Solution
+My solution consists of the following elements:
 
-1. 📦 Create a private git repository and do your work in there as if this was a real project at work.  
-Please share with us the repo once you're done.  
+#### Postgres
+I run Postgres on Docker. This so that any user can recreate this solution on his machine. Although Postgres is not quite a scalable cloud DWH-solution like Snowflake it allows me to simulate such an environment on my local machine.
 
-    ```
-    # 1. Pull
-    git clone git@github.com:EmesaDEV/data-engineer-assignment.git
-    # 2. Create a private Git repo
-    # 3. Add private remote
-    git remote add dev <your-private-repo>
-    # 4. Use git push to the private remote as you work
-    ```
+#### ELT-pipeline
+For the pipeline I follow an ELT flow. I extract the data from the CSV-file using PySpark. I create a typed Spark DataFrame so that in future loads the pipeline would fail if the schema all of a sudden changes. I initialise the database by executing SQL through Psycopg2. Using the Spark's JDBC I write the dataframe to a table. I define several layers in my 'DWH'; a raw-, dwh- and mrt-layer. In the raw layer I load source data 'as-is'. In the dwh layer I 'model' the data into entities (in this case just an orders table). In the mrt layer I create several data marts. I transform the data by running SQL queries to create views, much like one would do with e.g. DBT. I write the pipeline as one big file, essentially to resemble an Airflow DAG file.
 
-1. 👨‍🔧 Build a pipeline (batch or streaming) loading [data/sample.csv](data/sample.csv) into a database of choice.
+#### Use Case
+As a usecase I image that we have a Marketing team that want to data sets. One of customer the bought in the month February or December so that they can be send Valentines or Chrismas promotion materials. The Marketing team wants to be able to download the data in CSV format.
 
-2. 👨‍🔧 Build and deploy an API-endpoint to query the data. The endpoint should return a json response.
-
-3. 📓 Explain your work in a README-file.
-
-## Guidelines
-
-- 🕔 Do not spend more than 4~5 hours on *coding* this assignment.  
-If there are things you really wanted to include, but had no time for them, explain them in the README.
-
-- 🚀 Although this is small dummy data and a toy exercise, try aim for a production-grade solution. Think of scalability, maintainability, reliability.
-
-- 👨‍💻 Use whatever technologies you want, feel free to get creative and add extra features.
-
-- 🤔 Feel free to make assumptions and come up with requirements to make the assignment feel more real. Please note these down for us in the README.
-
-- 💭 We don't have a concrete solution in mind.  
-  We are interested in your thinking process, and the way you design and build a solution.
+#### Flask API / gunicorn server
+In order to serve the data a Flask API is used. By visition the homepage 2 hyperlinks allow the user to download CSV files containing customer data. To do this a 'PostgresConnector' class is used to connect to the Postgres database and query the data.

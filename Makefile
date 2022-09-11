@@ -34,5 +34,9 @@ pg_up:
 pg_down:
 	docker stop local_postgres && docker rm local_postgres
 
-api:
-	python -m gunicorn api:app
+server:
+	(\
+	source venv/bin/activate;\
+	python3 -m gunicorn server:app;\
+	)
+	
