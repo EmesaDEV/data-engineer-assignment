@@ -49,9 +49,6 @@ class PostgresConnector(DatabaseConnector):
         else:
             logger.exception("No connection present")
 
-    def _query_to_pandas(self, sql) -> pd.DataFrame:
-        return psql.read_sql(sql, self.conn)
-
     def ingest_spark_dataframe(self, df: SparkDataFrame, table) -> None:
         url = f"jdbc:postgresql://{self.host}:{self.port}/{self.database}"
         properties = {
@@ -60,6 +57,9 @@ class PostgresConnector(DatabaseConnector):
             "driver": "org.postgresql.Driver",
         }
         df.write.jdbc(url=url, table=table, mode="append", properties=properties)
+
+    def query_to_pandas(self, sql) -> pd.DataFrame:
+        return psql.read_sql(sql, self.conn)
 
     def close(self) -> None:
         self.conn.close()

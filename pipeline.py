@@ -2,21 +2,14 @@ from pyspark.sql.types import (IntegerType, StringType, StructField,
                                StructType, TimestampType)
 
 from app.connector import PostgresConnector
+from app.pgconfig import PG_CONNECTION_CREDENTIALS
 from app.sparkconfig import spark_session
-
-PG_CONN = {
-    "host": "localhost",
-    "database": "postgres",
-    "user": "postgres",
-    "password": "supersecret",
-    "port": "5433",
-}
 
 SAMPLE_DATA_PATH = "./data/sample.csv"
 
 spark = spark_session
 
-pgc = PostgresConnector(**PG_CONN)
+pgc = PostgresConnector(**PG_CONNECTION_CREDENTIALS)
 pgc.connect()
 
 # Initialize database for loading
@@ -104,3 +97,5 @@ and order_status = 'PAID'
 )
 """
 pgc.execute(sql)
+
+pgc.close()
