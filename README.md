@@ -1,22 +1,26 @@
 # Take-home Assignment Emesa
 
 ## How to run the solution
+! This solution was tested on MacOS.
+
 Prerequisites:
 * Docker
 * Python3
 * Virtualenv package installed
 * Make
+  * ! Installing make can be omitted by running the commands in the Makefile directly in you CLI.
 
 1. Clone the repo: `git clone https://github.com/JPlanken/emesa-de-assignment.git`
 2. cd into repo: `cd emesa-de-assignment`
 3. Install required packages into a virtual environment using `make venv`
 4. Launch Postgres on Docker by running `make pg_up`
-5. Run the pipeline `python3 pipeline.py`
+5. Run the pipeline `make pipeline`
 6. Launch the gunicorn server using `make server`
 7. Visit `http://127.0.0.1:5000/` in your browser
 8. Download the required CSV-file
 9. Inspect the data
-10. Stop Docker container by running `make pg_down`
+10. Stop the gunicorn server by pressing CTRL+C.
+11. Stop Docker container by running `make pg_down`
 
 ## Solution
 My solution consists of the following elements:

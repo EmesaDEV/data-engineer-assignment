@@ -34,6 +34,12 @@ pg_up:
 pg_down:
 	docker stop local_postgres && docker rm local_postgres
 
+pipeline:
+	(\
+	source venv/bin/activate;\
+	python3 pipeline.py;\
+	)
+
 server:
 	(\
 	source venv/bin/activate;\
