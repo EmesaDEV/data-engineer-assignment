@@ -1,7 +1,10 @@
 import logging
 
+import pandas as pd
+import pandas.io.sql as psql
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from pyspark.sql.dataframe import DataFrame as SparkDataFrame
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -32,13 +35,28 @@ class PostgresConnector(DatabaseConnector):
         )
         self.conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 
-    def execute(self, command: str) -> None:
+    def execute(self, command: str, response: bool = False) -> None:
         if self.conn:
             cur = self.conn.cursor()
             cur.execute(command)
-            cur.close()
+            if response:
+                return cur
+            else:
+                cur.close()
         else:
             logger.exception("No connection present")
+
+    def _query_to_pandas(self, sql) -> pd.DataFrame:
+        return psql.read_sql(sql, self.conn)
+
+    def ingest_spark_dataframe(self, df: SparkDataFrame, table) -> None:
+        url = f"jdbc:postgresql://{self.host}:{self.port}/{self.database}"
+        properties = {
+            "user": self.user,
+            "password": self.password,
+            "driver": "org.postgresql.Driver",
+        }
+        df.write.jdbc(url=url, table=table, mode="append", properties=properties)
 
     def close(self):
         self.conn.close()

@@ -2,6 +2,7 @@
 psycopg2
 pandas
 pyspark
+SQLAlchemy
 
 # development
 black

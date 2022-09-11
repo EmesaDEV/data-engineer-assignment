@@ -16,9 +16,9 @@ venv:
 lint:
 	(\
 	source venv/bin/activate;\
-	python3 -m black ./app;\
-	python3 -m isort ./app;\
-	python3 -m flake8 ./app --ignore=E501,W503;\
+	python3 -m black ./app pipeline.py;\
+	python3 -m isort ./app pipeline.py;\
+	python3 -m flake8 ./app pipeline.py --ignore=E501,W503;\
 	)
 
 pg_up:
