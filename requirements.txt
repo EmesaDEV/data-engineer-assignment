@@ -1,0 +1,14 @@
+# pipeline
+psycopg2
+pandas
+pyspark
+
+# api
+Flask
+gunicorn
+
+# linting & development
+black
+flake8
+isort
+jupyter
