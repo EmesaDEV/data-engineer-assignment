@@ -25,6 +25,10 @@ Please share with us the repo once you're done.
 
 3. 📓 Explain your work in a README-file.
 
+4. 👥 Share this repo with us:
+    - greg.batiz@emesa.nl
+    - dima.baranetskyi@emesa.nl
+
 ## Guidelines
 
 - 🕔 Do not spend more than 4~5 hours on *coding* this assignment.  
