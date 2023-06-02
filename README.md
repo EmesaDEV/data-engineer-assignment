@@ -42,3 +42,6 @@ If there are things you really wanted to include, but had no time for them, expl
 
 - 💭 We don't have a concrete solution in mind.  
   We are interested in your thinking process, and the way you design and build a solution.
+  
+- 🤖 Feel free to use an AI coding assistant / LLM model, if that is your preferred workflow.  
+We will still expect you to own the code, ie. be able to explain it in-depth, including why you (together with your coding assistant) decided to go for a certain solution, and what tradeoffs were made.
