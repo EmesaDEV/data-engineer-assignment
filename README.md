@@ -27,7 +27,8 @@ Please share with us the repo once you're done.
 
 4. 👥 Share this repo with us:
     - greg.batiz@emesa.nl
-    - dima.baranetskyi@emesa.nl
+    - joshua.olulana@emesa.nl
+    - ugur.saritepe@emesa.nl
 
 ## Guidelines
 
