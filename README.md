@@ -32,7 +32,7 @@ Please share with us the repo once you're done.
 
 ## Guidelines
 
-- 🕔 Do not spend more than 4~5 hours on *coding* this assignment.  
+- 🕔 Do not spend more than 5 hours on *coding* this assignment. Designing and planning your work does not count into this limit.</br>
 If there are things you really wanted to include, but had no time for them, explain them in the README.
 
 - 🚀 Although this is small dummy data and a toy exercise, try aim for a production-grade solution. Think of scalability, maintainability, reliability.
